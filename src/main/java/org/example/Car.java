@@ -1,16 +1,33 @@
 package org.example;
 
+import lombok.*;
+
+import java.time.LocalDate;
+import java.time.Period;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
+
 public class Car {
-    /*Заповненість бака
-Витрата палива на 100 км
-Дата техогляду
+    private double tankFullness;
+    private double fuelConsumptionPer100Km;
+    private LocalDate lastTechnicalInspectionDate;
 
-Написати такі функції
-Машина може їхати -> якщо у неї не порожній бак
-Машина допущена до експлуатації -> якщо дата техогляду не перевищує 2 роки
-Скільки машина може проїхати
+    public boolean isAbleToGo(){
+        return tankFullness > 0;
+    }
+    public boolean isAllowedToDrive(){
+        Period period = Period.between(lastTechnicalInspectionDate, LocalDate.now());
+        return period.getYears() <= 2;
+    }
 
-*/
-
-
+    public double kilometersCarCanDrive(){
+        Double numberOfKilometers = tankFullness / fuelConsumptionPer100Km * 100;
+        //Округляємо до сотих
+        return Math.round(numberOfKilometers * 100.0) / 100.0;
+    }
 }
